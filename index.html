@@ -1,29 +1,227 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartungsbuch Moi Bris</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<title>Wartungsbuch Moi Bris</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f2f2f7;
+        color: #1c1c1e;
+    }
+
+    .app {
+        max-width: 850px;
+        margin: auto;
+        padding: 30px 24px 60px;
+    }
+
+    h1 {
+        font-size: 38px;
+        margin-bottom: 6px;
+    }
+
+    .untertitel {
+        color: #6e6e73;
+        margin-bottom: 32px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 12px;
+        color: #6e6e73;
+    }
+
+    .karte {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .menue {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        padding: 19px 20px;
+        border: 0;
+        border-bottom: 1px solid #e5e5ea;
+        background: white;
+        font-size: 19px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .menue:last-child {
+        border-bottom: none;
+    }
+
+    .symbol {
+        font-size: 25px;
+        width: 34px;
+        text-align: center;
+    }
+
+    .titel {
+        flex: 1;
+    }
+
+    .pfeil {
+        color: #c7c7cc;
+        font-size: 24px;
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px;
+        font-size: 18px;
+    }
+
+    .ok {
+        color: #248a3d;
+        font-size: 25px;
+    }
+
+    .seite {
+        display: none;
+    }
+
+    .zurueck {
+        border: none;
+        background: none;
+        font-size: 18px;
+        padding: 8px 0;
+        cursor: pointer;
+        color: #007aff;
+    }
+
+    .plus {
+        float: right;
+        border: none;
+        background: #007aff;
+        color: white;
+        width: 44px;
+        height: 44px;
+        border-radius: 22px;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .leer {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6e6e73;
+    }
+</style>
 </head>
 
 <body>
-    <h1>Wartungsbuch Moi Bris</h1>
-    <h2>Eingabetest</h2>
 
-    <label for="bauteil">Bauteil:</label>
-    <input id="bauteil" type="text" placeholder="z. B. Hauptmotor">
+<div class="app">
 
-    <p id="anzeige"></p>
+    <!-- STARTSEITE -->
+    <div id="startseite" class="seite" style="display:block">
 
-    <button onclick="anzeigen()">Übernehmen</button>
+        <h1>Moi Bris</h1>
+        <div class="untertitel">Wartungsbuch</div>
 
-    <script>
-        function anzeigen() {
-            const text = document.getElementById("bauteil").value;
-            document.getElementById("anzeige").textContent =
-                "Eingegeben: " + text;
-        }
-    </script>
+        <h2>Übersicht</h2>
+
+        <div class="karte">
+
+            <button class="menue">
+                <span class="symbol">🔧</span>
+                <span class="titel">Wartungen</span>
+                <span class="pfeil">›</span>
+            </button>
+
+            <button class="menue" onclick="zeigeBauteile()">
+                <span class="symbol">⚙️</span>
+                <span class="titel">Bauteile</span>
+                <span class="pfeil">›</span>
+            </button>
+
+            <button class="menue">
+                <span class="symbol">📦</span>
+                <span class="titel">Ersatzteile</span>
+                <span class="pfeil">›</span>
+            </button>
+
+            <button class="menue">
+                <span class="symbol">📄</span>
+                <span class="titel">Dokumente</span>
+                <span class="pfeil">›</span>
+            </button>
+
+        </div>
+
+        <h2>Wartungsstatus</h2>
+
+        <div class="karte">
+            <div class="status">
+                <span class="ok">✓</span>
+                <span>Keine überfälligen Wartungen</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- BAUTEILE -->
+    <div id="bauteilseite" class="seite">
+
+        <button class="zurueck" onclick="zeigeStartseite()">
+            ‹ Zurück
+        </button>
+
+        <button class="plus" onclick="neuesBauteil()">
+            +
+        </button>
+
+        <h1>Bauteile</h1>
+
+        <div class="karte">
+            <div id="bauteilliste" class="leer">
+                Noch keine Bauteile vorhanden.<br><br>
+                Tippe auf +, um das erste Bauteil anzulegen.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function zeigeBauteile() {
+    document.getElementById("startseite").style.display = "none";
+    document.getElementById("bauteilseite").style.display = "block";
+}
+
+function zeigeStartseite() {
+    document.getElementById("bauteilseite").style.display = "none";
+    document.getElementById("startseite").style.display = "block";
+}
+
+function neuesBauteil() {
+    alert("Als Nächstes bauen wir hier das Formular zum Anlegen eines Bauteils ein.");
+}
+
+</script>
+
 </body>
 </html>
