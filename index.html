@@ -1,1 +1,29 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wartungsbuch Moi Bris</title>
+</head>
+
+<body>
+    <h1>Wartungsbuch Moi Bris</h1>
+    <h2>Eingabetest</h2>
+
+    <label for="bauteil">Bauteil:</label>
+    <input id="bauteil" type="text" placeholder="z. B. Hauptmotor">
+
+    <p id="anzeige"></p>
+
+    <button onclick="anzeigen()">Übernehmen</button>
+
+    <script>
+        function anzeigen() {
+            const text = document.getElementById("bauteil").value;
+            document.getElementById("anzeige").textContent =
+                "Eingegeben: " + text;
+        }
+    </script>
+</body>
+</html>
